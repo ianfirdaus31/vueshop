@@ -52,8 +52,7 @@
                 </v-chip>
             </v-card-text>
             <v-card-actions>
-                <v-btn block color="success" @click="buy"
-                       :disabled="book.stock==0">
+                <v-btn block color="success" @click="buy">
                     <v-icon>mdi-cart-plus</v-icon> &nbsp;
                     BUY
                 </v-btn>
@@ -64,6 +63,8 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+
     export default {
         data: () => ({
             book: {}, // objek book
@@ -87,8 +88,16 @@
                         console.log(responses)
                     })
             },
+
+            ...mapActions({
+                addCart: 'cart/add'
+            }),
+
             buy(){
-                alert('buy')
+                //alert('buy')
+                // this.$store.dispatch('add', this.book)
+                this.addCart(this.book)
+
             }
         }
     }
